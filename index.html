@@ -1,0 +1,417 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>BTC CYBERLORD</title>
+    <style>
+        body {
+            font-family: 'Courier New', monospace;
+            background: linear-gradient(45deg, #0a0a0a, #1a1a2e, #16213e);
+            color: #00ff41;
+            overflow-x: hidden;
+            min-height: 100vh;
+        }
+
+        .navbar {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            background: rgba(10,10,10,0.95);
+            border-bottom: 2px solid #00ff41;
+            padding: 15px 0;
+            gap: 32px;
+            position: sticky;
+            top: 0;
+            z-index: 100;
+        }
+        .navbar a {
+            color: #ffa500;
+            text-decoration: none;
+            font-weight: bold;
+            padding: 7px 18px;
+            border-radius: 8px;
+            transition: background 0.2s, color 0.2s;
+        }
+        .navbar a:hover {
+            background: #00ff41;
+            color: #0a0a0a;
+        }
+
+        .social-icons {
+            margin-top: 10px;
+            text-align: center;
+        }
+        .social-icons a {
+            color: #ffa500;
+            margin: 0 8px;
+            font-size: 1.7em;
+            transition: color .2s;
+            text-decoration: none;
+        }
+        .social-icons a:hover {
+            color: #00ff41;
+        }
+
+        .matrix-bg {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            pointer-events: none;
+            opacity: 0.1;
+            z-index: -1;
+        }
+
+        .header {
+            text-align: center;
+            padding: 50px 20px 20px 20px;
+            background: rgba(0, 0, 0, 0.8);
+            border-bottom: 2px solid #00ff41;
+            position: relative;
+        }
+
+        .title {
+            font-size: 3.5em;
+            font-weight: bold;
+            color: #ffa500;
+            text-shadow: 0 0 20px #ffa500, 0 0 40px #ffa500;
+            animation: glow 2s ease-in-out infinite alternate;
+            margin-bottom: 20px;
+        }
+
+        .subtitle {
+            font-size: 1.2em;
+            color: #00ff41;
+            animation: typewriter 3s steps(30) 1s forwards;
+            white-space: nowrap;
+            overflow: hidden;
+            border-right: 2px solid #00ff41;
+            margin: 0 auto;
+            width: 0;
+        }
+
+        @keyframes glow {
+            from { text-shadow: 0 0 20px #ffa500, 0 0 30px #ffa500; }
+            to { text-shadow: 0 0 30px #ffa500, 0 0 60px #ffa500; }
+        }
+        @keyframes typewriter { to { width: 100%; } }
+
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 20px;
+        }
+
+        .cyber-card {
+            background: linear-gradient(135deg, rgba(0, 255, 65, 0.1), rgba(255, 165, 0, 0.1));
+            border: 2px solid #00ff41;
+            border-radius: 10px;
+            padding: 30px;
+            margin: 20px 0;
+            box-shadow: 0 0 30px rgba(0, 255, 65, 0.3);
+            transition: all 0.3s ease;
+            position: relative;
+            overflow: hidden;
+        }
+        .cyber-card::before {
+            content: '';
+            position: absolute;
+            top: -2px;
+            left: -2px;
+            right: -2px;
+            bottom: -2px;
+            background: linear-gradient(45deg, #00ff41, #ffa500, #00ff41);
+            z-index: -1;
+            border-radius: 10px;
+            opacity: 0;
+            transition: opacity 0.3s ease;
+        }
+        .cyber-card:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 10px 50px rgba(0, 255, 65, 0.5);
+        }
+        .cyber-card:hover::before {
+            opacity: 1;
+        }
+
+        .section-title {
+            color: #ffa500;
+            font-size: 2em;
+            margin-bottom: 20px;
+            text-align: center;
+        }
+        .btc-price {
+            text-align: center;
+            font-size: 2.5em;
+            color: #00ff41;
+            margin: 20px 0;
+            text-shadow: 0 0 10px #00ff41;
+        }
+        .features {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 20px;
+            margin: 40px 0;
+        }
+        .feature {
+            background: rgba(0, 0, 0, 0.5);
+            border: 1px solid #00ff41;
+            padding: 20px;
+            border-radius: 8px;
+            text-align: center;
+            position: relative;
+        }
+        .feature h3 {
+            color: #ffa500;
+            margin-bottom: 10px;
+        }
+        .feature-links {
+            margin-top: 12px;
+        }
+        .feature-links a {
+            color: #ffa500;
+            text-decoration: underline;
+            font-size: 1em;
+            margin: 0 6px;
+            transition: color .2s;
+        }
+        .feature-links a:hover { color: #00ff41; }
+
+        .cyber-button {
+            background: linear-gradient(45deg, #00ff41, #008f11);
+            color: #000;
+            border: none;
+            padding: 15px 30px;
+            font-size: 1.2em;
+            font-weight: bold;
+            border-radius: 5px;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            text-transform: uppercase;
+            margin: 10px;
+        }
+        .cyber-button:hover {
+            background: linear-gradient(45deg, #ffa500, #ff7700);
+            transform: scale(1.05);
+            box-shadow: 0 5px 20px rgba(255, 165, 0, 0.4);
+        }
+        .terminal {
+            background: #000;
+            border: 2px solid #00ff41;
+            border-radius: 5px;
+            padding: 20px;
+            font-family: 'Courier New', monospace;
+            margin: 20px 0;
+        }
+        .terminal-line {
+            color: #00ff41;
+            margin: 5px 0;
+        }
+        .terminal-cursor {
+            animation: blink 1s infinite;
+        }
+        @keyframes blink { 0%, 50% { opacity: 1; } 51%, 100% { opacity: 0; } }
+
+        .resources {
+            margin: 40px 0;
+            text-align: center;
+        }
+        .resources h2 {
+            color: #ffa500;
+            margin-bottom: 18px;
+        }
+        .resources-list {
+            display: flex;
+            flex-wrap: wrap;
+            justify-content: center;
+            gap: 18px;
+        }
+        .resources-list a {
+            background: rgba(0, 255, 65, 0.12);
+            border: 1px solid #ffa500;
+            color: #ffa500;
+            border-radius: 8px;
+            padding: 12px 20px;
+            text-decoration: none;
+            font-weight: bold;
+            transition: background .2s, color .2s;
+            margin-bottom: 10px;
+        }
+        .resources-list a:hover {
+            background: #ffa500;
+            color: #1a1a2e;
+        }
+        .footer {
+            text-align: center;
+            padding: 40px 20px;
+            border-top: 2px solid #00ff41;
+            background: rgba(0, 0, 0, 0.8);
+            margin-top: 50px;
+        }
+        @media (max-width: 768px) {
+            .title { font-size: 2.5em; }
+            .container { padding: 10px; }
+            .resources-list { flex-direction: column; }
+        }
+    </style>
+    <!-- FontAwesome for social icons -->
+    <script src="https://kit.fontawesome.com/3e3e0f58a8.js" crossorigin="anonymous"></script>
+</head>
+<body>
+    <div class="matrix-bg">
+        <canvas id="matrixCanvas"></canvas>
+    </div>
+    <nav class="navbar">
+        <a href="https://bitcoin.org/" target="_blank">Bitcoin.org</a>
+        <a href="https://www.coinmarketcap.com/" target="_blank">CoinMarketCap</a>
+        <a href="https://www.binance.com/" target="_blank">Binance</a>
+        <a href="https://www.coindesk.com/" target="_blank">CoinDesk News</a>
+        <a href="https://blockchain.info/" target="_blank">Blockchain Explorer</a>
+        <a href="#resources">Resources</a>
+    </nav>
+    <div class="header">
+        <h1 class="title">BTC CYBERLORD</h1>
+        <p class="subtitle">DIGITAL FORTRESS OF CRYPTOCURRENCY</p>
+        <div class="social-icons">
+            <a href="https://twitter.com/search?q=bitcoin" target="_blank" title="Twitter"><i class="fab fa-twitter"></i></a>
+            <a href="https://t.me/Bitcoin" target="_blank" title="Telegram"><i class="fab fa-telegram"></i></a>
+            <a href="https://reddit.com/r/Bitcoin/" target="_blank" title="Reddit"><i class="fab fa-reddit"></i></a>
+            <a href="https://discord.com/invite/bitcoin" target="_blank" title="Discord"><i class="fab fa-discord"></i></a>
+        </div>
+    </div>
+    <div class="container">
+        <div class="cyber-card">
+            <h2 class="section-title">Bitcoin Command Center</h2>
+            <div class="btc-price" id="btcPrice">Loading BTC Price...</div>
+            <div class="terminal">
+                <div class="terminal-line">[SYSTEM] Initializing Bitcoin monitoring...</div>
+                <div class="terminal-line">[STATUS] Blockchain sync: ACTIVE</div>
+                <div class="terminal-line">[NETWORK] Nodes connected: 8,547</div>
+                <div class="terminal-line">[SECURITY] Encryption status: MAXIMUM</div>
+                <div class="terminal-line">[CYBERLORD] Ready for commands<span class="terminal-cursor">_</span></div>
+            </div>
+        </div>
+        <div class="features">
+            <div class="feature cyber-card">
+                <h3>Portfolio Tracker</h3>
+                <p>Monitor your cryptocurrency investments with real-time data and advanced analytics.</p>
+                <button class="cyber-button">Launch Tracker</button>
+                <div class="feature-links">
+                    <a href="https://www.coingecko.com/en/portfolio" target="_blank">Learn More</a>
+                    <a href="https://www.blockfolio.com/" target="_blank">Blockfolio</a>
+                </div>
+            </div>
+            <div class="feature cyber-card">
+                <h3>Market Analysis</h3>
+                <p>AI-powered market predictions and trend analysis for optimal trading strategies.</p>
+                <button class="cyber-button">Analyze Market</button>
+                <div class="feature-links">
+                    <a href="https://www.tradingview.com/markets/cryptocurrencies/prices-all/" target="_blank">TradingView</a>
+                    <a href="https://messari.io/" target="_blank">Messari Analytics</a>
+                </div>
+            </div>
+            <div class="feature cyber-card">
+                <h3>Security Vault</h3>
+                <p>Military-grade encryption for your digital assets. Your keys, your crypto.</p>
+                <button class="cyber-button">Access Vault</button>
+                <div class="feature-links">
+                    <a href="https://bitcoin.org/en/secure-your-wallet" target="_blank">Secure Your Wallet</a>
+                    <a href="https://www.ledger.com/" target="_blank">Ledger Hardware Wallet</a>
+                </div>
+            </div>
+        </div>
+        <div class="cyber-card">
+            <h2 class="section-title">Cyber Terminal</h2>
+            <div class="terminal" id="interactiveTerminal">
+                <div class="terminal-line">[CYBERLORD@BITCOIN] ~ $ <span id="terminalInput"></span><span class="terminal-cursor">_</span></div>
+            </div>
+            <button class="cyber-button" onclick="executeCommand()">Execute Command</button>
+        </div>
+
+        <div class="resources cyber-card" id="resources">
+            <h2>Crypto Resources</h2>
+            <div class="resources-list">
+                <a href="https://bitcoin.org/" target="_blank">Official Bitcoin.org</a>
+                <a href="https://github.com/bitcoin/bitcoin" target="_blank">Bitcoin GitHub</a>
+                <a href="https://www.coindesk.com/" target="_blank">Coindesk News</a>
+                <a href="https://www.blockchain.com/explorer" target="_blank">Blockchain Explorer</a>
+                <a href="https://www.coinbase.com/learn" target="_blank">Coinbase Learn</a>
+                <a href="https://cryptonews.com/" target="_blank">CryptoNews</a>
+                <a href="https://www.trustwallet.com/" target="_blank">Trust Wallet</a>
+                <a href="https://bitcoin.stackexchange.com/" target="_blank">Bitcoin StackExchange</a>
+            </div>
+        </div>
+    </div>
+    <div class="footer">
+        <p>&copy; 2025 BTC CYBERLORD - Dominating the Digital Frontier</p>
+        <p>Powered by Blockchain Technology &amp; Cyber Warfare Protocols</p>
+    </div>
+
+    <script>
+        // Matrix rain effect
+        const canvas = document.getElementById('matrixCanvas');
+        const ctx = canvas.getContext('2d');
+        canvas.width = window.innerWidth;
+        canvas.height = window.innerHeight;
+        const letters = '0123456789ABCDEF₿';
+        const fontSize = 16;
+        const columns = canvas.width / fontSize;
+        const drops = [];
+        for (let x = 0; x < columns; x++) drops[x] = 1;
+        function drawMatrix() {
+            ctx.fillStyle = 'rgba(0, 0, 0, 0.05)';
+            ctx.fillRect(0, 0, canvas.width, canvas.height);
+            ctx.fillStyle = '#00ff41';
+            ctx.font = fontSize + 'px monospace';
+            for (let i = 0; i < drops.length; i++) {
+                const text = letters[Math.floor(Math.random() * letters.length)];
+                ctx.fillText(text, i * fontSize, drops[i] * fontSize);
+                if (drops[i] * fontSize > canvas.height && Math.random() > 0.975) drops[i] = 0;
+                drops[i]++;
+            }
+        }
+        setInterval(drawMatrix, 35);
+        window.addEventListener('resize', () => {
+            canvas.width = window.innerWidth;
+            canvas.height = window.innerHeight;
+        });
+
+        // Simulate BTC price (for demo purposes)
+        function updateBTCPrice() {
+            const basePrice = 45000;
+            const variation = (Math.random() - 0.5) * 2000;
+            const price = basePrice + variation;
+            document.getElementById('btcPrice').textContent = `$${price.toFixed(2)}`;
+        }
+        updateBTCPrice();
+        setInterval(updateBTCPrice, 5000);
+
+        // Interactive terminal
+        const commands = [
+            'scan --network bitcoin',
+            'analyze --market trends',
+            'decrypt --vault access',
+            'monitor --portfolio status',
+            'hack --mainframe initiated'
+        ];
+        function executeCommand() {
+            const randomCommand = commands[Math.floor(Math.random() * commands.length)];
+            const terminal = document.getElementById('interactiveTerminal');
+            const newLine = document.createElement('div');
+            newLine.className = 'terminal-line';
+            newLine.innerHTML = `[CYBERLORD@BITCOIN] ~ $ ${randomCommand}`;
+            terminal.appendChild(newLine);
+            setTimeout(() => {
+                const response = document.createElement('div');
+                response.className = 'terminal-line';
+                response.style.color = '#ffa500';
+                response.textContent = '[SUCCESS] Command executed successfully';
+                terminal.appendChild(response);
+                terminal.scrollTop = terminal.scrollHeight;
+            }, 1000);
+        }
+    </script>
+</body>
+</html>
